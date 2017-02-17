@@ -38,6 +38,8 @@ namespace MavroBeholderImport.Models
 
         public int? DeletedUserId { get; set; }
 
+        [ForeignKey("PersonId")]
+        public virtual CommonPerson CommonPerson { get; set; }
 
     }
 }
