@@ -4,6 +4,7 @@ using MavroBeholderImport.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.IO;
 using System.Linq;
 using System.Net;
 
@@ -16,13 +17,34 @@ namespace MavroBeholderImport
 
         static void Main(string[] args)
         {
-            Console.Write("Enter file path: ");
-            _sourceFileName = Console.ReadLine();
-            Console.WriteLine($"Read file path {_sourceFileName}");
 
-            ExtractLoadChapterPublications();
-            ExtractLoadPersonPublications();
-            ExtractLoadWebsitePublications();
+            do
+            {
+                Console.Write("Enter file path or 'exit': ");
+                _sourceFileName = Console.ReadLine();
+
+                if (_sourceFileName != "exit")
+                {
+                    if (!File.Exists(_sourceFileName))
+                    {
+                        Console.WriteLine("File does not exist ");
+                        Console.Write("Enter file path or 'exit': ");
+                        _sourceFileName = Console.ReadLine();
+                    }
+                }
+                else
+                {
+                    break;
+                }
+
+                Console.WriteLine($"Reading file path {_sourceFileName}");
+
+                ExtractLoadChapterPublications();
+                ExtractLoadPersonPublications();
+                ExtractLoadWebsitePublications();
+
+
+            } while (_sourceFileName != "exit");
 
             Console.WriteLine("Finished ");
             Console.Write("Press Any Key ");
